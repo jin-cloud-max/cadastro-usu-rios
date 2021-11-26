@@ -10,7 +10,7 @@ content-type: application/json
 GET http://localhost:3000/users
 
 ###
-POST http://localhost:3000/credentials/2
+POST http://localhost:3000/credentials/8
 content-type: application/json
 
 {
