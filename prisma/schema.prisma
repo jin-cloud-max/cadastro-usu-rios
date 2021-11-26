@@ -11,7 +11,17 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  surname String
+  id          Int          @id @default(autoincrement())
+  name        String
+  surname     String
+  Credentials Credentials?
+}
+
+model Credentials {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int      @unique
 }
