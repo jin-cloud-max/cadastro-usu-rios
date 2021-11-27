@@ -2,17 +2,16 @@ import { Credentials, Prisma } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
-import { hash } from "bcrypt"
-
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class CredentialsService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: Prisma.CredentialsCreateInput): Promise<Credentials> {
-    const { password, email, user } = data
+    const { password, email, user } = data;
 
-    const hashedPassword = await hash(password, 10)
+    const hashedPassword = await hash(password, 10);
 
     const userExists = await this.prisma.credentials.findUnique({
       where: {
@@ -28,11 +27,10 @@ export class CredentialsService {
       data: {
         password: hashedPassword,
         email,
-        user
-      }
-    })
+        user,
+      },
+    });
 
-    return newUser
+    return newUser;
   }
-
 }
