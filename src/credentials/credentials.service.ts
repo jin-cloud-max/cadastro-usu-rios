@@ -1,5 +1,5 @@
 import { Credentials, Prisma } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 import { hash } from "bcrypt"
@@ -14,6 +14,16 @@ export class CredentialsService {
 
     const hashedPassword = await hash(password, 10)
 
+    const userExists = await this.prisma.credentials.findUnique({
+      where: {
+        email
+      }
+    })
+
+    if (userExists) {
+      throw new HttpException('E-mail not available', HttpStatus.CONFLICT)
+    }
+
     const newUser = this.prisma.credentials.create({
       data: {
         password: hashedPassword,
@@ -25,19 +35,4 @@ export class CredentialsService {
     return newUser
   }
 
-  findAll() {
-    return `This action returns all credentials`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} credential`;
-  }
-
-  // update(id: number, updateCredentialDto: UpdateCredentialDto) {
-  //    return `This action updates a #${id} credential`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} credential`;
-  }
 }

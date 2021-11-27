@@ -18,24 +18,4 @@ export class CredentialsController {
       }
     }); 
   }
-
-  @Get()
-  findAll() {
-    return this.credentialsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.credentialsService.findOne(+id);
-  }
-
-   //   @Patch(':id')
-   //   update(@Param('id') id: string, @Body() updateCredentialDto: UpdateCredentialDto) {
-   //     return this.credentialsService.update(+id, updateCredentialDto);
-   //   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.credentialsService.remove(+id);
-  }
 }
