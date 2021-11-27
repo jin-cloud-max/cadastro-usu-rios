@@ -18,3 +18,19 @@ content-type: application/json
   "password":"123456"
 }
 
+###
+POST http://localhost:3000/genres
+content-type: application/json
+
+{
+  "name": "Esportes"
+}
+
+###
+POST http://localhost:3000/games
+content-type: application/json
+
+{
+  "game": "Fifa 2020",
+  "genre_id": 1
+}
